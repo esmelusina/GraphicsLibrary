@@ -11,6 +11,10 @@
 #include <iostream>
 #endif
 
+
+
+
+
 glm::vec4 calcTangent(const Vertex &v0, const Vertex &v1, const Vertex &v2)
 {
 	glm::vec4 p1 = v1.position - v0.position;
@@ -204,7 +208,7 @@ Texture makeTexture(unsigned w, unsigned h, unsigned c,
 	glBindTexture(GL_TEXTURE_2D, retval.handle);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
 	glTexImage2D(GL_TEXTURE_2D, 0, f, w, h, 0, f, GL_UNSIGNED_BYTE, pixels);
