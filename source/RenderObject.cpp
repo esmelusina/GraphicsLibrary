@@ -186,22 +186,19 @@ void freeShader(Shader &s)
 
 
 
-
-
-
-
-Texture makeTexture(unsigned w, unsigned h, unsigned c,
-	const unsigned char *pixels)
+Texture makeTexture(unsigned w, unsigned h, unsigned c, const void *pixels, bool isFloat)
 {
 	Texture retval = { 0 };
 
 	GLenum f = 0;
+	GLenum i = 0;
 	switch (c)
 	{
-	case 1: f = GL_RED;  break;
-	case 2: f = GL_RG;   break;
-	case 3: f = GL_RGB;  break;
-	case 4: f = GL_RGBA; break;
+	case 0: f = GL_DEPTH_COMPONENT; i = GL_DEPTH24_STENCIL8;  break;
+	case 1: f = GL_RED;   i = isFloat ? GL_R32F    : GL_RED;  break;
+	case 2: f = GL_RG;    i = isFloat ? GL_RG32F   : GL_RG;   break;
+	case 3: f = GL_RGB;   i = isFloat ? GL_RGB32F  : GL_RGB;  break;
+	case 4: f = GL_RGBA;  i = isFloat ? GL_RGBA32F : GL_RGBA; break;
 	}
 
 	glGenTextures(1, &retval.handle);
@@ -211,7 +208,7 @@ Texture makeTexture(unsigned w, unsigned h, unsigned c,
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-	glTexImage2D(GL_TEXTURE_2D, 0, f, w, h, 0, f, GL_UNSIGNED_BYTE, pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, i, w, h, 0, f, isFloat ? GL_FLOAT : GL_UNSIGNED_BYTE, pixels);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return retval;
