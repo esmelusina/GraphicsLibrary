@@ -24,6 +24,10 @@ int main()
 
 	Geometry ss_geo = loadGeometry("../../resources/models/soulspear.obj");
 
+	unsigned char pixels[] = {127,127,255};
+
+	Texture default_normal = makeTexture(1, 1, 3, pixels);
+
 	Texture floor_normal  = loadTexture("../../resources/textures/cone.jpg");
 	//Texture floor_diffuse = loadTexture("../../resources/textures/soulspear_diffuse.tga");
 

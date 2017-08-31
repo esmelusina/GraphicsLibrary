@@ -219,3 +219,43 @@ void freeTexture(Texture &t)
 	glDeleteTextures(1, &t.handle);
 	t = { 0 };
 }
+
+
+
+Framebuffer makeFramebuffer(unsigned w, unsigned h, unsigned c, bool hasDepth, unsigned nTargets, unsigned nFloatTargets)
+{
+	Framebuffer retval = { 0,w,h, {0}, {0} };
+
+	// Code goes here!
+	glGenFramebuffers(1, &retval.handle);
+	glBindFramebuffer(GL_FRAMEBUFFER, retval.handle);
+
+	retval.depthTarget = makeTexture(w, h, 0, 0);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, retval.depthTarget.handle, 0);
+
+	const GLenum attachments[8] =
+	{ GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
+		GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5,
+		GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7 };
+
+
+	for (int i = 0; i < (nTargets + nFloatTargets) && i < 8; ++i)
+	{
+		retval.targets[i] = makeTexture(w, h, c, 0, i >= nTargets);
+		glFramebufferTexture(GL_FRAMEBUFFER, attachments[i], retval.targets[i].handle, 0);
+	}
+
+	glDrawBuffers(nTargets, attachments);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	return retval;
+}
+
+
+void freeFramebuffer(Framebuffer &fb)
+{
+	for (unsigned i = 0; i < fb.nTargets; ++i)
+		freeTexture(fb.targets[i]);
+
+	glDeleteFramebuffers(1, &fb.handle);
+	fb = { 0,0,0,0 };
+}

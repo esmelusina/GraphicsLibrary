@@ -14,7 +14,7 @@ void s0_draw(const Framebuffer &f,
 void clearFramebuffer(const Framebuffer &f, bool color = true, 
 											bool depth = true);
 
-enum RenderFlag {DEPTH = 1};
+enum RenderFlag {NONE = 0, DEPTH = 1};
 void setFlags(int flags);
 
 

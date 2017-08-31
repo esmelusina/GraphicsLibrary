@@ -130,12 +130,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\GenRO.cpp" />
     <ClCompile Include="source\Context.cpp" />
     <ClCompile Include="source\draw.cpp" />
     <ClCompile Include="source\load.cpp" />
     <ClCompile Include="source\RenderObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\graphics\GenRO.h" />
     <ClInclude Include="include\graphics\Context.h" />
     <ClInclude Include="include\graphics\draw.h" />
     <ClInclude Include="include\graphics\Load.h" />

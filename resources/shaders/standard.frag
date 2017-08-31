@@ -15,10 +15,9 @@ in vec2 vUV;
 
 void main()
 {
-	vec3 tN = 2*texture(normalMap, vUV).xyz-1;
+	vec4 tN = 2*texture(normalMap, vUV)-1;
 
-
-	vec3 N = (vTBN*vec4(tN,0)).xyz;
+	vec3 N = (vTBN*tN).xyz;
 
 	float lamb = dot(N, -L);
 
