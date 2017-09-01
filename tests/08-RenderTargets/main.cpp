@@ -73,7 +73,7 @@ int main()
 		{ 
 			glm::mat4 q_mod =  glm::translate(glm::vec3(-.5 + i%2,-.5 + i/2,0)) * glm::scale(glm::vec3(.5,.5,1));
 			loc = 0, tslot = 0;
-			setUniforms(quadDraw, loc, tslot, q_mod, pbuffer.depthTarget);
+			setUniforms(quadDraw, loc, tslot, q_mod, pbuffer.targets[i]);
 			s0_draw(screen, quadDraw, quad);
 		}
 		
