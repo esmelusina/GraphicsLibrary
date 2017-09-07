@@ -120,6 +120,8 @@
     <None Include="gpass.vert" />
     <None Include="lambertP.frag" />
     <None Include="lambertP.vert" />
+    <None Include="lpass_dir.frag" />
+    <None Include="lpass_dir.vert" />
     <None Include="mvplite.frag" />
     <None Include="mvplite.vert" />
     <None Include="quad.frag" />

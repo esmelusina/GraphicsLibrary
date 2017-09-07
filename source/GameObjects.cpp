@@ -36,7 +36,7 @@ SimplePresetScene::SimplePresetScene()
 	unsigned quadidx[] = { 0,1,3, 1,2,3 };
 	solveTangents(vquad, 4, quadidx, 6);
 	go[0].geo = makeGeometry(vquad, 4, quadidx, 6);
-	go[0].model = glm::rotate(glm::radians(90.f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(5, 5, 1));
+	go[0].model = glm::rotate(glm::radians(90.f), glm::vec3(-1, 0, 0)) * glm::scale(glm::vec3(2.5, 2.5, 1));
 	go[0].diffuse	= loadTexture("../../resources/textures/four_diffuse.tga");
 	go[0].specular	= loadTexture("../../resources/textures/four_specular.tga");
 	go[0].normal	= loadTexture("../../resources/textures/four_normal.tga");
@@ -63,13 +63,13 @@ SimplePresetScene::SimplePresetScene()
 
 	// Light 1
 	dl[0].center	= glm::vec3(0, 0, 0);
-	dl[0].color		= glm::vec4(.9,.5,.1, 1);
-	dl[0].direction = glm::normalize(glm::vec3(.8, -1, -1));
-	dl[0].intensity = 1.4;
+	dl[0].color		= glm::vec4(1,1,0, 1);
+	dl[0].direction = glm::normalize(glm::vec3(.8, -.2, -.3));
+	dl[0].intensity = 1.0;
 
 	// Light 2
 	dl[1].center	= glm::vec3(0,0,0);
-	dl[1].color		= glm::vec4(.1, .5, .9, 1);
-	dl[1].direction = glm::normalize(glm::vec3(.1, -.2, -4));
-	dl[1].intensity	= .8;
+	dl[1].color		= glm::vec4(0, 1, 1, 1);
+	dl[1].direction = glm::normalize(glm::vec3(-.8, -.2, -.3));
+	dl[1].intensity	= 1.0;
 }
