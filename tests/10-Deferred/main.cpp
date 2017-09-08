@@ -28,7 +28,7 @@ void main()
 	Shader gpass = loadShader("../../resources/shaders/gpass.vert", "../../resources/shaders/gpass.frag");
 
 	// directional lighting shadow/light pass
-	//Shader spass_dir = loadShader("../../resources/shaders/spass_dir.vert", "../../resources/shaders/spass_dir.frag");
+	Shader spass_dir = loadShader("../../resources/shaders/shadow.vert", "../../resources/shaders/shadow.frag");
 	Shader lpass_dir = loadShader("../../resources/shaders/lpass_dir.vert", "../../resources/shaders/lpass_dir.frag");
 	
 	// composites into the screen
@@ -61,9 +61,18 @@ void main()
 		//////////////////////////////////
 		// LPASS Directional
 		clearFramebuffer(lbuff);
-		setFlags(RenderFlag::ADDITIVE);
+		
 		for (int i = 0; i < 2; ++i)
 		{
+			setFlags(RenderFlag::DEPTH);
+			clearFramebuffer(sbuff);
+			for(int j = 0; j < 3; ++j)
+			{
+				loc = slot = 0;
+				setUniforms(spass_dir, loc, slot, scene.dl[i].getProj(), scene.dl[i].getView());
+				s0_draw(sbuff, spass_dir, scene.go[j].geo);
+			}
+			setFlags(RenderFlag::ADDITIVE);
 			loc = slot = 0;
 			setUniforms(lpass_dir, loc, slot, scene.cam, scene.dl[i], 
 											  gbuff.targets[0], gbuff.targets[3]);
@@ -77,7 +86,7 @@ void main()
 		setFlags(RenderFlag::NONE);
 		clearFramebuffer(screen, true, true);
 		loc = slot = 0;
-		setUniforms(cpass, loc, slot, lbuff.targets[0]);
+		setUniforms(cpass, loc, slot, sbuff.depthTarget);
 		s0_draw(screen, cpass, quad);
 	}
 

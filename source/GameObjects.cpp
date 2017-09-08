@@ -66,10 +66,13 @@ SimplePresetScene::SimplePresetScene()
 	dl[0].color		= glm::vec4(1,1,0, 1);
 	dl[0].direction = glm::normalize(glm::vec3(.8, -.2, -.3));
 	dl[0].intensity = 1.0;
+	dl[0].size = 10;
 
 	// Light 2
 	dl[1].center	= glm::vec3(0,0,0);
 	dl[1].color		= glm::vec4(0, 1, 1, 1);
 	dl[1].direction = glm::normalize(glm::vec3(-.8, -.2, -.3));
 	dl[1].intensity	= 1.0;
+	dl[1].size = 10;
+
 }
